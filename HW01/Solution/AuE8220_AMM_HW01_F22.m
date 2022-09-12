@@ -4,6 +4,10 @@
 
 %% Problem 1 %%
 
+fprintf('\n================================================================\n');
+fprintf('FOURBAR POSITION ANALYSES\n');
+fprintf('================================================================\n');
+
 r1 = 4.0; % Ground Link Length (m)
 r2 = 2.0; % Crank Link Length (m)
 r3 = 3.0; % Coupler Link Length (m)
@@ -15,12 +19,19 @@ psi = 30; % Coupler Link Angle (deg)
 
 %% Problem 1 - A %%
 
+fprintf('\n----------------------------------------------------------------\n');
+fprintf('Problem 1 - A | Method of Circles\n');
+fprintf('----------------------------------------------------------------\n\n');
+
 % Initialize
 [t3,t4,Cx,Cy] = deal(zeros(1, 360));
 
 % Solve
+fprintf('Solving for uncrossed configuration...\n');
 for i = 1:360
+    fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = MethodOfCircles(r1,r2,r3,r4,r5,t1,t2(i),psi,"uncrossed");
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
@@ -43,14 +54,24 @@ subtitle('C_y vs. C_x')
 xlabel('C_x (m)')
 ylabel('C_y (m)')
 
+% Store variables for comparison
+t3_a = t3; t4_a = t4; Cx_a = Cx; Cy_a = Cy;
+
 %% Problem 1 - B %%
+
+fprintf('\n----------------------------------------------------------------\n');
+fprintf('Problem 1 - B | Method of Loop Closure\n');
+fprintf('----------------------------------------------------------------\n\n');
 
 % Initialize
 [t3,t4,Cx,Cy] = deal(zeros(1, 360));
 
 % Solve
+fprintf('Solving for crossed configuration...\n');
 for i = 1:360
+    fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = MethodOfLoopClosure(r1,r2,r3,r4,r5,t1,t2(i),psi,"crossed");
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
@@ -72,6 +93,115 @@ title('Fourbar Position Analysis: Method of Loop Closure')
 subtitle('C_y vs. C_x')
 xlabel('C_x (m)')
 ylabel('C_y (m)')
+
+% Store variables for comparison
+t3_b = t3; t4_b = t4; Cx_b = Cx; Cy_b = Cy;
+
+%% Problem 1 - C-1 %%
+
+fprintf('\n----------------------------------------------------------------\n');
+fprintf('Problem 1 - C | Newton-Raphson Method\n');
+fprintf('----------------------------------------------------------------\n\n');
+
+% Initialize
+t3_init = t3_a + (5*(-1+2*rand(1,1))); % Analytical solution +/- random noise [-5, 5]
+t4_init = t4_a + (5*(-1+2*rand(1,1))); % Analytical solution +/- random noise [-5, 5]
+t3_init_c1 = t3_init; % Store variable for benchmarking in Problem 1 - C-2
+t4_init_c1 = t4_init; % Store variable for benchmarking in Problem 1 - C-2
+[t3,t4,Cx,Cy] = deal(zeros(1, 360));
+
+% Solve
+fprintf('Solving for uncrossed configuration...\n');
+for i = 1:360
+    fprintf('theta_2 = %.3d\t', i-1);
+    [t3(i),t4(i),Cx(i),Cy(i)] = NewtonRaphsonMethod(r1,r2,r3,r4,r5,t1,t2(i),t3_init(i),t4_init(i),psi);
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
+end
+
+% Plot
+figure(7)
+plot(t2, t3)
+title('Fourbar Position Analysis: Newton-Raphson Method')
+subtitle('\theta_3 vs. \theta_2')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_3 (deg)')
+figure(8)
+plot(t2, t4)
+title('Fourbar Position Analysis: Newton-Raphson Method')
+subtitle('\theta_4 vs. \theta_2')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_4 (deg)')
+figure(9)
+plot(Cx, Cy)
+title('Fourbar Position Analysis: Newton-Raphson Method')
+subtitle('C_y vs. C_x')
+xlabel('C_x (m)')
+ylabel('C_y (m)')
+
+figure(10)
+plot(t3_a-t3)
+title('Fourbar Position Analysis: Newton-Raphson Method')
+subtitle('Error in \theta_3')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_3_{ analytical} - \theta_3_{ numerical} (deg)')
+figure(11)
+plot(t4_a-t4)
+title('Fourbar Position Analysis: Newton-Raphson Method')
+subtitle('Error in \theta_4')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_4_{ analytical} - \theta_4_{ numerical} (deg)')
+
+%% Problem 1 - C-2 %%
+
+fprintf('\n----------------------------------------------------------------\n');
+fprintf('Problem 1 - C | MATLAB FSOLVE Method\n');
+fprintf('----------------------------------------------------------------\n\n');
+
+% Initialize
+t3_init = t3_init_c1; % Use same initial value for t3 as in case of Problem 1 - C-1
+t4_init = t4_init_c1; % Use same initial value for t4 as in case of Problem 1 - C-1
+[t3,t4,Cx,Cy] = deal(zeros(1, 360));
+
+% Solve
+fprintf('Solving for uncrossed configuration...\n');
+for i = 1:360
+    fprintf('theta_2 = %.3d\t', i-1);
+    [t3(i),t4(i),Cx(i),Cy(i)] = FSOLVEMethod(r1,r2,r3,r4,r5,t1,t2(i),t3_init(i),t4_init(i),psi);
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
+end
+
+% Plot
+figure(12)
+plot(t2, t3)
+title('Fourbar Position Analysis: FSOLVE Method')
+subtitle('\theta_3 vs. \theta_2')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_3 (deg)')
+figure(13)
+plot(t2, t4)
+title('Fourbar Position Analysis: FSOLVE Method')
+subtitle('\theta_4 vs. \theta_2')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_4 (deg)')
+figure(14)
+plot(Cx, Cy)
+title('Fourbar Position Analysis: FSOLVE Method')
+subtitle('C_y vs. C_x')
+xlabel('C_x (m)')
+ylabel('C_y (m)')
+
+figure(15)
+plot(t3_a-t3)
+title('Fourbar Position Analysis: FSOLVE Method')
+subtitle('Error in \theta_3')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_3_{ analytical} - \theta_3_{ numerical} (deg)')
+figure(16)
+plot(t4_a-t4)
+title('Fourbar Position Analysis: FSOLVE Method')
+subtitle('Error in \theta_4')
+xlabel('\theta_2 (deg)')
+ylabel('\theta_4_{ analytical} - \theta_4_{ numerical} (deg)')
 
 %% Helper Functions
 
@@ -263,4 +393,67 @@ function [t3,t4,Cx,Cy] = MethodOfLoopClosure(r1,r2,r3,r4,r5,t1,t2,psi,config)
     else
         [t3,t4,Cx,Cy] = deal(inf);
     end
+end
+
+% Numerical Approach: Newton-Raphson Method
+
+function [t3,t4,Cx,Cy] = NewtonRaphsonMethod(r1,r2,r3,r4,r5,t1,t2,t3_init,t4_init,psi)
+    
+    % Given the link lengths (r1, r2, r3, r4, r5) and link angles (t1, t2,
+    % psi), solves for the remaining link angles (t3, t4) and positional
+    % coordinates of point of contact on coupler (Cx, Cy) for the given
+    % initial guess of t3 and t4, using the Newton-Raphson method.
+    
+    % Compute positional coordinates of points A
+    Ax = r2*cosd(t2); Ay = r2*sind(t2);
+    % Initialize t3 and t4
+    T = [t3_init; t4_init];
+    F = [1; 1];
+    % Numerical loop to compute t3 and t4
+    while(norm(F) > 1e-10)
+        % Formulate the function F and its partial derivative
+        F = [r2*cosd(t2)+r3*cosd(T(1))-r1*cosd(t1)-r4*cosd(T(2)); r2*sind(t2)+r3*sind(T(1))-r1*sind(t1)-r4*sind(T(2))]; % Formulate the function F
+        dFdt = [-r3*sind(T(1)), r4*sind(T(2)); r3*cosd(T(1)), -r4*cosd(T(2))]; % Compute partial derivative of F w.r.t. theta (i.e., dF/dt)
+        dFdt_inv = pinv(dFdt); % Compute inverse (computing pseudo-inverse since dFdt matrix may become singular for certain cases)
+        delta_t = -dFdt_inv * F; % Compute deltaTheta
+        T = T + delta_t; % Update theta values (theta_k+1 = theta_k + deltaTheta)
+    end
+    % Converged solutions for t3 and t4
+    t3 = T(1); t4 = T(2);
+    % Compute t5
+    t5 = t3 + psi;
+    % Compute Cx
+    Cx = Ax + r5*cosd(t5);
+    % Compute Cy
+    Cy = Ay + r5*sind(t5);
+end
+
+% Numerical Approach: MATLAB FSOLVE Method
+
+function [t3,t4,Cx,Cy] = FSOLVEMethod(r1,r2,r3,r4,r5,t1,t2,t3_init,t4_init,psi)
+    
+    % Given the link lengths (r1, r2, r3, r4, r5) and link angles (t1, t2,
+    % psi), solves for the remaining link angles (t3, t4) and positional
+    % coordinates of point of contact on coupler (Cx, Cy) for the given
+    % initial guess of t3 and t4, using MATLAB's FSOLVE method.
+    
+    % Compute positional coordinates of points A
+    Ax = r2*cosd(t2); Ay = r2*sind(t2);
+    % Initialize t3 and t4
+    T = [t3_init, t4_init];
+    if not(isequal(T, [Inf, Inf])) % Solve for feasible solutions only
+        options = optimset('Display','off'); % Turn off fsolve output messages
+        % Formulate the function F(x(1), x(2)) where x(1) = t3 and x(2) = t4
+        F = @(x) [r2*cosd(t2)+r3*cosd(x(1))-r1*cosd(t1)-r4*cosd(x(2)); r2*sind(t2)+r3*sind(x(1))-r1*sind(t1)-r4*sind(x(2))];
+        % Solve the function F numerically for values of x(1) (i.e. t3) and x(2) (i.e. t4) starting from [t3_init; t4_init]
+        T = fsolve(F, T, options);
+    end
+    % Converged solutions for t3 and t4
+    t3 = T(1); t4 = T(2);
+    % Compute t5
+    t5 = t3 + psi;
+    % Compute Cx
+    Cx = Ax + r5*cosd(t5);
+    % Compute Cy
+    Cy = Ay + r5*sind(t5);
 end
