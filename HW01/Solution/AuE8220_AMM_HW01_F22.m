@@ -408,6 +408,7 @@ function [t3,t4,Cx,Cy] = NewtonRaphsonMethod(r1,r2,r3,r4,r5,t1,t2,t3_init,t4_ini
     Ax = r2*cosd(t2); Ay = r2*sind(t2);
     % Initialize t3 and t4
     T = [t3_init; t4_init];
+    % Initialize F
     F = [1; 1];
     % Numerical loop to compute t3 and t4
     while(norm(F) > 1e-10)
