@@ -31,7 +31,7 @@ fprintf('Solving for uncrossed configuration...\n');
 for i = 1:360
     fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = MethodOfCircles(r1,r2,r3,r4,r5,t1,t2(i),psi,"uncrossed");
-    fprintf('theta_3 = %.4f\theta_4 = %.4f\n', t3(i), t4(i));
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
@@ -71,7 +71,7 @@ fprintf('Solving for crossed configuration...\n');
 for i = 1:360
     fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = MethodOfLoopClosure(r1,r2,r3,r4,r5,t1,t2(i),psi,"crossed");
-    fprintf('theta_3 = %.4f\theta_4 = %.4f\n', t3(i), t4(i));
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
@@ -115,7 +115,7 @@ fprintf('Solving for uncrossed configuration...\n');
 for i = 1:360
     fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = NewtonRaphsonMethod(r1,r2,r3,r4,r5,t1,t2(i),t3_init(i),t4_init(i),psi);
-    fprintf('theta_3 = %.4f\theta_4 = %.4f\n', t3(i), t4(i));
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
@@ -167,7 +167,7 @@ fprintf('Solving for uncrossed configuration...\n');
 for i = 1:360
     fprintf('theta_2 = %.3d\t', i-1);
     [t3(i),t4(i),Cx(i),Cy(i)] = FSOLVEMethod(r1,r2,r3,r4,r5,t1,t2(i),t3_init(i),t4_init(i),psi);
-    fprintf('theta_3 = %.4f\theta_4 = %.4f\n', t3(i), t4(i));
+    fprintf('theta_3 = %.4f\ttheta_4 = %.4f\n', t3(i), t4(i));
 end
 
 % Plot
