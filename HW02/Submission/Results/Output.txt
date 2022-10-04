@@ -22,30 +22,30 @@ psi = 2.3562 rad	psi = -0.7854 rad
 Problem 1 (b)
 ----------------------------------------------------------------
 
-Final orientation after absolute Rzxz rotations:
-    0.0474   -0.7891    0.6124
-    0.6597   -0.4356   -0.6124
-    0.7500    0.4330    0.5000
+Final orientation after relative Rzxz rotations:
+    0.0474   -0.6597    0.7500
+    0.7891   -0.4356   -0.4330
+    0.6124    0.6124    0.5000
 
 Alternate soultions for absolute Rxyz to achieve the same orientation:
-phi = 0.0717 rad	phi = -3.0699 rad
-theta = -0.5404 rad	theta = -2.6012 rad
-psi = 0.8571 rad	psi = -2.2845 rad
+phi = 0.0600 rad	phi = -3.0816 rad
+theta = -0.4813 rad	theta = -2.6603 rad
+psi = 0.6847 rad	psi = -2.4569 rad
 
 ----------------------------------------------------------------
 Problem 1 (c)
 ----------------------------------------------------------------
 
-Final orientation after absolute Rzxz rotations:
-    0.0474   -0.7891    0.6124
-    0.6597   -0.4356   -0.6124
-    0.7500    0.4330    0.5000
+Final orientation after relative Rzxz rotations:
+    0.0474   -0.6597    0.7500
+    0.7891   -0.4356   -0.4330
+    0.6124    0.6124    0.5000
 
 Alternate axis/angle representation of the same orientation:
 Angle: 2.0310 rad
 Axis:
     0.5834
-   -0.0768
+    0.0768
     0.8086
 
 
