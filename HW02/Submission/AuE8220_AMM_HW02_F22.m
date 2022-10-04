@@ -43,34 +43,33 @@ fprintf('\n----------------------------------------------------------------\n');
 fprintf('Problem 1 (b)\n');
 fprintf('----------------------------------------------------------------\n\n');
 
-fprintf("Final orientation after absolute Rzxz rotations:\n")
-Rzxz_abs = Rz13*Rx12*Rz11;
-disp(Rzxz_abs);
+fprintf("Final orientation after relative Rzxz rotations:\n")
+disp(Rzxz);
 
 fprintf("Alternate soultions for absolute Rxyz to achieve the same orientation:\n")
-phi1 = atan2(Rzxz_abs(1,1), Rzxz_abs(2,1));
-phi2 = atan2(-Rzxz_abs(1,1), -Rzxz_abs(2,1));
+phi1 = atan2(Rzxz(1,1), Rzxz(2,1));
+phi2 = atan2(-Rzxz(1,1), -Rzxz(2,1));
 fprintf("phi = %.4f rad\tphi = %.4f rad\n", phi1, phi2)
-theta1 = atan2(-Rzxz_abs(3,1), sqrt(1+Rzxz_abs(3,1)^2));
-theta2 = atan2(-Rzxz_abs(3,1), -sqrt(1+Rzxz_abs(3,1)^2));
+theta1 = atan2(-Rzxz(3,1), sqrt(1+Rzxz(3,1)^2));
+theta2 = atan2(-Rzxz(3,1), -sqrt(1+Rzxz(3,1)^2));
 fprintf("theta = %.4f rad\ttheta = %.4f rad\n", theta1, theta2)
-psi1 = atan2(Rzxz_abs(3,3), Rzxz_abs(3,2));
-psi2 = atan2(-Rzxz_abs(3,3), -Rzxz_abs(3,2));
+psi1 = atan2(Rzxz(3,3), Rzxz(3,2));
+psi2 = atan2(-Rzxz(3,3), -Rzxz(3,2));
 fprintf("psi = %.4f rad\tpsi = %.4f rad\n", psi1, psi2)
 
 fprintf('\n----------------------------------------------------------------\n');
 fprintf('Problem 1 (c)\n');
 fprintf('----------------------------------------------------------------\n\n');
 
-fprintf("Final orientation after absolute Rzxz rotations:\n")
-disp(Rzxz_abs);
+fprintf("Final orientation after relative Rzxz rotations:\n")
+disp(Rzxz);
 
 fprintf("Alternate axis/angle representation of the same orientation:\n")
-theta = acos((Rzxz_abs(1,1)+Rzxz_abs(2,2)+Rzxz_abs(3,3)-1)/2);
+theta = acos((Rzxz(1,1)+Rzxz(2,2)+Rzxz(3,3)-1)/2);
 fprintf("Angle: %.4f rad\n", theta)
-k = 1/(2*sin(theta)) * [Rzxz_abs(3,2)-Rzxz_abs(2,3);
-                        Rzxz_abs(1,3)-Rzxz_abs(3,1);
-                        Rzxz_abs(2,1)-Rzxz_abs(1,2)];
+k = 1/(2*sin(theta)) * [Rzxz(3,2)-Rzxz(2,3);
+                        Rzxz(1,3)-Rzxz(3,1);
+                        Rzxz(2,1)-Rzxz(1,2)];
 fprintf("Axis:\n"); disp(k);
 
 %% Problem 2 %%
