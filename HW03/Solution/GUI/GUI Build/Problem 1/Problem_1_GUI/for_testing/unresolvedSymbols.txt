@@ -1,0 +1,2 @@
+Path	Symbol	Reason
+Users\tsamak\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Robotics Toolbox for MATLAB\lib\spatial-math\RTBPose.m	digits	undeployable

@@ -1,0 +1,5 @@
+Path	Symbol	Reason
+Users\tsamak\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Robotics Toolbox for MATLAB\@SerialLink\ikine_sym.m	syms	undeployable
+Users\tsamak\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Robotics Toolbox for MATLAB\@SerialLink\ikine_sym.m	str2sym	undeployable
+Users\tsamak\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Robotics Toolbox for MATLAB\lib\spatial-math\RTBPose.m	digits	undeployable
+Users\tsamak\AppData\Roaming\MathWorks\MATLAB Add-Ons\Toolboxes\Robotics Toolbox for MATLAB\sym2.m	mupadmex	undeployable
