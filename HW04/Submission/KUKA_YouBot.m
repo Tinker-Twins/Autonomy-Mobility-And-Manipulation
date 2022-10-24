@@ -303,8 +303,8 @@ if clientID > -1
                 plot(T_manipulator,manipulatorTheta3)
                 plot(T_manipulator,manipulatorTheta4)
                 hold off
-                xlabel("X Position (m)")
-                ylabel("Y Position (m)")
+                xlabel("Simulation Time (s)")
+                ylabel("Joint Angles (rad)")
                 legend("J0","J1","J2","J3","J4",'Location','EO')
                 % Stop Simulation and MATLAB Script
                 disp("Simulation Completed!")
