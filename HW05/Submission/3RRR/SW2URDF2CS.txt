@@ -1,0 +1,19 @@
+SolidWorks --> URDF --> CoppeliaSim Workflow
+
+Step 1: Export URDF from SolidWorks
+
+1. Design individual parts in SolidWorks with the "Front" (XY) plane as the top-view plane for the part (this is very important)
+2. Assemble the parts in SolidWorks with the "Front" (XY) plane as the top-view plane for the assembly (this is very important)
+3. Create the following reference geometries for each joint:
+	- "Axis" passing through the joint
+	- "Coordinate Frame" attached to the origin of the joint (you may need to define a point at this location first)
+4. If not already done, install the "SW2URDF" plugin (you may need to restart SolidWorks after installing the plugin)
+5. Locate the plugin button "Export as URDF" either under the "File" menu (older versions of SW) or the "Tools" menu (newer versions of SW)
+6. Configure the link hierarchy and assign appropriate joints. Reference the axes and origins for each joint defined in step 3.
+7. Click "Preview and Export..." button to export the URDF file.
+
+Step 2: Import URDF into CoppeliaSim
+
+1. Click "Modules" --> "Importers" --> "URDF importer"
+2. Browse to the exported ".urdf" file and select it
+3. Once imported, make necessary changes to suit it to your CoppeliaSim scene.

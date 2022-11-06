@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="3RRR">
+  <link
+    name="Base">
+    <inertial>
+      <origin
+        xyz="-6.605413806351E-16 -3.17931621191438E-15 0.00534836374604153"
+        rpy="0 0 0" />
+      <mass
+        value="0.97649535402911" />
+      <inertia
+        ixx="0.0442557968886024"
+        ixy="-1.60830380859908E-16"
+        ixz="6.90664043554829E-18"
+        iyy="0.0442557968886033"
+        iyz="2.99573880338784E-17"
+        izz="0.0884887523527264" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Proximal_Link_1">
+    <inertial>
+      <origin
+        xyz="-0.0106031433843753 0.129549269977181 -0.00566725132133193"
+        rpy="0 0 0" />
+      <mass
+        value="0.124327488543993" />
+      <inertia
+        ixx="0.00137112474112597"
+        ixy="0.000110851404901506"
+        ixz="8.79612186572238E-07"
+        iyy="2.5814395978425E-05"
+        iyz="-1.07471070136966E-05"
+        izz="0.00139331856591969" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Proximal_Joint_1"
+    type="continuous">
+    <origin
+      xyz="-0.259807621135314 -0.15000000000001 0.03"
+      rpy="0 0 0" />
+    <parent
+      link="Base" />
+    <child
+      link="Proximal_Link_1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Distal_Link_1">
+    <inertial>
+      <origin
+        xyz="0.105094828205274 -0.0144270239803969 -0.00575678198789138"
+        rpy="0 0 0" />
+      <mass
+        value="0.109618995082061" />
+      <inertia
+        ixx="3.11043934368219E-05"
+        ixy="0.00011458802567765"
+        ixz="-8.71842323393357E-06"
+        iyy="0.000850099960831622"
+        iyz="1.19683245327274E-06"
+        izz="0.000877843779154388" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Distal_Joint_1"
+    type="continuous">
+    <origin
+      xyz="-0.0244720942079539 0.299000194991704 0.00999999999999996"
+      rpy="0 0 0" />
+    <parent
+      link="Proximal_Link_1" />
+    <child
+      link="Distal_Link_1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Platform_1">
+    <inertial>
+      <origin
+        xyz="0.0866025100946161 -0.0499999825156199 -0.0062155080678228"
+        rpy="0 0 0" />
+      <mass
+        value="0.204748162200477" />
+      <inertia
+        ixx="0.000566208682172319"
+        ixy="-1.77882626792638E-17"
+        ixz="2.9603585680024E-18"
+        iyy="0.000566208682172368"
+        iyz="3.77525231569202E-18"
+        izz="0.00112463244849747" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Platform_Joint_1"
+    type="continuous">
+    <origin
+      xyz="0.247677182518953 -0.0340001949916939 0.00999999999999986"
+      rpy="0 0 0" />
+    <parent
+      link="Distal_Link_1" />
+    <child
+      link="Platform_1" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="Pen_1">
+    <inertial>
+      <origin
+        xyz="-2.77555756156289E-17 0 0.0282692307692308"
+        rpy="0 0 0" />
+      <mass
+        value="0.00340339204138894" />
+      <inertia
+        ixx="5.62818337732056E-07"
+        ixy="-1.95945165683614E-25"
+        ixz="6.23669931312084E-22"
+        iyy="5.62818337732056E-07"
+        iyz="-3.44719090484433E-22"
+        izz="4.12334035783661E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pen_Joint_1"
+    type="fixed">
+    <origin
+      xyz="0.0866025100946145 -0.0499999825156214 -0.0499999999999999"
+      rpy="0 0 0" />
+    <parent
+      link="Platform_1" />
+    <child
+      link="Pen_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Proximal_Link_2">
+    <inertial>
+      <origin
+        xyz="-0.117716090996769 -0.0551213381703562 -0.00566725132133189"
+        rpy="0 0 0" />
+      <mass
+        value="0.124327488543995" />
+      <inertia
+        ixx="0.000261936319046183"
+        ixy="-0.00052363320868154"
+        ixz="9.76545392651935E-06"
+        iyy="0.00113500281805866"
+        iyz="4.57273838871763E-06"
+        izz="0.00139331856592013" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Proximal_Joint_2"
+    type="continuous">
+    <origin
+      xyz="0.259807621135349 -0.14999999999999 0.03"
+      rpy="0 0 0" />
+    <parent
+      link="Base" />
+    <child
+      link="Proximal_Link_2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Distal_Link_2">
+    <inertial>
+      <origin
+        xyz="0.0262576823589785 0.102779356164368 -0.00575678198789138"
+        rpy="0 0 0" />
+      <mass
+        value="0.109618995082061" />
+      <inertia
+        ixx="0.000813723433420234"
+        ixy="-0.000203959257179798"
+        ixz="-2.17827643716793E-06"
+        iyy="6.74809208482708E-05"
+        iyz="-8.52633704297911E-06"
+        izz="0.00087784377915445" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Distal_Joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.271689174071722 -0.127220252681032 0.00999999999999996"
+      rpy="0 0 0" />
+    <parent
+      link="Proximal_Link_2" />
+    <child
+      link="Distal_Link_2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Platform_2">
+    <inertial>
+      <origin
+        xyz="2.70616862252382E-16 0.0999999650312466 -0.00621550806782299"
+        rpy="0 0 0" />
+      <mass
+        value="0.204748162200477" />
+      <inertia
+        ixx="0.000566208682172319"
+        ixy="-1.77985197193222E-17"
+        ixz="2.96097250764337E-18"
+        iyy="0.000566208682172368"
+        iyz="3.77856103814223E-18"
+        izz="0.00112463244849747" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Platform_Joint_2"
+    type="continuous">
+    <origin
+      xyz="0.0618815302066741 0.242220305134155 0.01"
+      rpy="0 0 0" />
+    <parent
+      link="Distal_Link_2" />
+    <child
+      link="Platform_2" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="Pen_2">
+    <inertial>
+      <origin
+        xyz="-2.77555756156289E-17 0 0.0282692307692308"
+        rpy="0 0 0" />
+      <mass
+        value="0.00340339204138894" />
+      <inertia
+        ixx="5.62818337732056E-07"
+        ixy="-1.95945165683614E-25"
+        ixz="6.23669931312084E-22"
+        iyy="5.62818337732056E-07"
+        iyz="-3.44719090484433E-22"
+        izz="4.12334035783661E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pen_Joint_2"
+    type="fixed">
+    <origin
+      xyz="0 0.0999999650312451 -0.0500000000000001"
+      rpy="0 0 0" />
+    <parent
+      link="Platform_2" />
+    <child
+      link="Pen_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Proximal_Link_3">
+    <inertial>
+      <origin
+        xyz="0.129969489653854 0.00183623537893562 -0.00566725132133173"
+        rpy="0 0 0" />
+      <mass
+        value="0.124327488543994" />
+      <inertia
+        ixx="1.70137056767246E-05"
+        ixy="-1.92593382894901E-05"
+        ixz="-1.07819674635899E-05"
+        iyy="0.00137992543142781"
+        iyz="-1.523298288228E-07"
+        izz="0.00139331856591983" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Proximal_Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Proximal_Joint_3"
+    type="continuous">
+    <origin
+      xyz="0 0.3 0.03"
+      rpy="0 0 0" />
+    <parent
+      link="Base" />
+    <child
+      link="Proximal_Link_3" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Distal_Link_3">
+    <inertial>
+      <origin
+        xyz="-0.0693204241914309 -0.0802978251657357 -0.0057567819878914"
+        rpy="0 0 0" />
+      <mass
+        value="0.109618995082061" />
+      <inertia
+        ixx="0.000502665530833683"
+        ixy="-0.000420674447297839"
+        ixz="5.750661637471E-06"
+        iyy="0.00037853882343481"
+        iyz="6.66132136580377E-06"
+        izz="0.000877843779154437" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Distal_Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Distal_Joint_3"
+    type="continuous">
+    <origin
+      xyz="0.299970063562069 0.00423803805647649 0.0100000000000003"
+      rpy="0 0 0" />
+    <parent
+      link="Proximal_Link_3" />
+    <child
+      link="Distal_Link_3" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Platform_3">
+    <inertial>
+      <origin
+        xyz="-0.0866025100946116 -0.0499999825156209 -0.00621550806782302"
+        rpy="0 0 0" />
+      <mass
+        value="0.204748162200477" />
+      <inertia
+        ixx="0.000566208682172319"
+        ixy="-1.77657633675279E-17"
+        ixz="2.96158644728435E-18"
+        iyy="0.000566208682172368"
+        iyz="3.77856103814223E-18"
+        izz="0.00112463244849747" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Platform_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Platform_Joint_3"
+    type="continuous">
+    <origin
+      xyz="-0.163367576197156 -0.189238038056475 0.00999999999999971"
+      rpy="0 0 0" />
+    <parent
+      link="Distal_Link_3" />
+    <child
+      link="Platform_3" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="Pen_3">
+    <inertial>
+      <origin
+        xyz="-2.77555756156289E-17 0 0.0282692307692308"
+        rpy="0 0 0" />
+      <mass
+        value="0.00340339204138894" />
+      <inertia
+        ixx="5.62818337732056E-07"
+        ixy="-1.95945165683614E-25"
+        ixz="6.23669931312084E-22"
+        iyy="5.62818337732056E-07"
+        iyz="-3.44719090484433E-22"
+        izz="4.12334035783661E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://3RRR/meshes/Pen_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pen_Joint_3"
+    type="fixed">
+    <origin
+      xyz="-0.0866025100946132 -0.0499999825156224 -0.0500000000000001"
+      rpy="0 0 0" />
+    <parent
+      link="Platform_3" />
+    <child
+      link="Pen_3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
