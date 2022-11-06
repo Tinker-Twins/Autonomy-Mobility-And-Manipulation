@@ -30,41 +30,18 @@ J13_Offset = deg2rad(0.80943257);
 Time = [];
 % Arm 1 joint parameters (position, velocity, acceleration)
 Theta11 = [];
-Theta21 = [];
-Theta31 = [];
 dTheta11 = [];
-dTheta21 = [];
-dTheta31 = [];
 ddTheta11 = [];
-ddTheta21 = [];
-ddTheta31 = [];
 % Arm 2 joint parameters (position, velocity, acceleration)
 Theta12 = [];
-Theta22 = [];
-Theta32 = [];
 dTheta12 = [];
-dTheta22 = [];
-dTheta32 = [];
 ddTheta12 = [];
-ddTheta22 = [];
-ddTheta32 = [];
 % Arm 3 joint parameters (position, velocity, acceleration)
 Theta13 = [];
-Theta23 = [];
-Theta33 = [];
 dTheta13 = [];
-dTheta23 = [];
-dTheta33 = [];
 ddTheta13 = [];
-ddTheta23 = [];
-ddTheta33 = [];
 
 %% CoppeliaSim Remote API Connection
-
-% [Q1,Q2,Q3] = IK_3RRR(0.050,0.065,deg2rad(-60),robot_params);
-% Q1 = rad2deg(Q1)
-% Q2 = rad2deg(Q2)
-% Q3 = rad2deg(Q3)
 
 vrep = remApi('remoteApi');
 vrep.simxFinish(-1);
@@ -84,23 +61,52 @@ if clientID > -1
     [~, J32] = vrep.simxGetObjectHandle(clientID, 'Platform_Joint_2', vrep.simx_opmode_blocking);
     [~, J33] = vrep.simxGetObjectHandle(clientID, 'Platform_Joint_3', vrep.simx_opmode_blocking);
     [~, pen] = vrep.simxGetObjectHandle(clientID, 'Pen_respondable', vrep.simx_opmode_blocking);
-    %while true
-        % Get Pen's Pose & Velocity
-        [~,penPosition]=vrep.simxGetObjectPosition(clientID,pen,-1,vrep.simx_opmode_streaming);
-        [~,penOrientation]=vrep.simxGetObjectOrientation(clientID,pen,-1,vrep.simx_opmode_streaming);
-        [~,penLVelocity,penAVelocity]=vrep.simxGetObjectVelocity(clientID,pen,vrep.simx_opmode_streaming);
-        % Get Parallel Manipulator Robot Joint Angles
+    % Declare simulation time-step
+    dt = 0.1;
+    % Initialize previous joint angles for t=0
+    q11_prev=0;
+    q12_prev=0;
+    q13_prev=0;
+    % Initialize previous joint velocities for t=0
+    dq11_prev=0;
+    dq12_prev=0;
+    dq13_prev=0;
+    while true
+        % Get and Record Time
+        [T]=vrep.simxGetLastCmdTime(clientID);
+        Time(end+1) = T/1000;
+        % Get Joint Angles
         [~,q11]=vrep.simxGetJointPosition(clientID,J11,vrep.simx_opmode_streaming);
         [~,q12]=vrep.simxGetJointPosition(clientID,J12,vrep.simx_opmode_streaming);
         [~,q13]=vrep.simxGetJointPosition(clientID,J13,vrep.simx_opmode_streaming);
-        [~,q21]=vrep.simxGetJointPosition(clientID,J21,vrep.simx_opmode_streaming);
-        [~,q22]=vrep.simxGetJointPosition(clientID,J22,vrep.simx_opmode_streaming);
-        [~,q23]=vrep.simxGetJointPosition(clientID,J23,vrep.simx_opmode_streaming);
-        [~,q31]=vrep.simxGetJointPosition(clientID,J31,vrep.simx_opmode_streaming);
-        [~,q32]=vrep.simxGetJointPosition(clientID,J32,vrep.simx_opmode_streaming);
-        [~,q33]=vrep.simxGetJointPosition(clientID,J33,vrep.simx_opmode_streaming);
-        % Get Time
-        [T]=vrep.simxGetLastCmdTime(clientID);
+        % Record Joint Angles
+        Theta11(end+1) = q11+J11_Offset;
+        Theta12(end+1) = q12+J12_Offset;
+        Theta13(end+1) = q13+J13_Offset;
+        % Calculate Joint Velocities
+        dq11 = (q11-q11_prev)/dt;
+        dq12 = (q12-q12_prev)/dt;
+        dq13 = (q13-q13_prev)/dt;
+        % Record Joint Velocities
+        dTheta11(end+1) = dq11;
+        dTheta12(end+1) = dq12;
+        dTheta13(end+1) = dq13;
+        % Update Previous Joint Velocities
+        q11_prev = q11;
+        q12_prev = q12;
+        q13_prev = q13;
+        % Calculate Joint Accelerations
+        ddq11 = (dq11-dq11_prev)/dt;
+        ddq12 = (dq12-dq12_prev)/dt;
+        ddq13 = (dq13-dq13_prev)/dt;
+        % Record Joint Accelerations
+        ddTheta11(end+1) = ddq11;
+        ddTheta12(end+1) = ddq12;
+        ddTheta13(end+1) = ddq13;
+        % Update Previous Joint Velocities
+        dq11_prev = dq11;
+        dq12_prev = dq12;
+        dq13_prev = dq13;
         % Move End Effector from (50 mm, 65 mm, -60 deg) to (0 mm, 65 mm, -60 deg)
         Ctraj = ctraj(transl(0.05,0.065,0.00)*trotz(-60), transl(0.00,0.065,0.00)*trotz(-60), 20);
         Jtraj = [];
@@ -112,24 +118,42 @@ if clientID > -1
             Jtraj(i,:) = [Q1,Q2,Q3];
         end
         for i=1:length(Jtraj)
-            % Record Manipulator Robot Data
-%             [~,manipulatorPosition]=vrep.simxGetObjectPosition(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,manipulatorOrientation]=vrep.simxGetObjectOrientation(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,J0]=vrep.simxGetJointPosition(clientID,joint0,vrep.simx_opmode_streaming);
-%             [~,J1]=vrep.simxGetJointPosition(clientID,joint1,vrep.simx_opmode_streaming);
-%             [~,J2]=vrep.simxGetJointPosition(clientID,joint2,vrep.simx_opmode_streaming);
-%             [~,J3]=vrep.simxGetJointPosition(clientID,joint3,vrep.simx_opmode_streaming);
-%             [~,J4]=vrep.simxGetJointPosition(clientID,joint4,vrep.simx_opmode_streaming);
-%             [Time]=vrep.simxGetLastCmdTime(clientID);
-%             manipulatorPosX(end+1) = manipulatorPosition(1);
-%             manipulatorPosY(end+1) = manipulatorPosition(3);
-%             manipulatorTheta0(end+1) = J0;
-%             manipulatorTheta1(end+1) = J1;
-%             manipulatorTheta2(end+1) = J2;
-%             manipulatorTheta3(end+1) = J3;
-%             manipulatorTheta4(end+1) = J4;
-%             T_manipulator(end+1) = Time/1000;
-            % Manipulator Joints
+            % Get and Record Time
+            [T]=vrep.simxGetLastCmdTime(clientID);
+            Time(end+1) = T/1000;
+            % Get Joint Angles
+            [~,q11]=vrep.simxGetJointPosition(clientID,J11,vrep.simx_opmode_streaming);
+            [~,q12]=vrep.simxGetJointPosition(clientID,J12,vrep.simx_opmode_streaming);
+            [~,q13]=vrep.simxGetJointPosition(clientID,J13,vrep.simx_opmode_streaming);
+            % Record Joint Angles
+            Theta11(end+1) = q11+J11_Offset;
+            Theta12(end+1) = q12+J12_Offset;
+            Theta13(end+1) = q13+J13_Offset;
+            % Calculate Joint Velocities
+            dq11 = (q11-q11_prev)/dt;
+            dq12 = (q12-q12_prev)/dt;
+            dq13 = (q13-q13_prev)/dt;
+            % Record Joint Velocities
+            dTheta11(end+1) = dq11;
+            dTheta12(end+1) = dq12;
+            dTheta13(end+1) = dq13;
+            % Update Previous Joint Velocities
+            q11_prev = q11;
+            q12_prev = q12;
+            q13_prev = q13;
+            % Calculate Joint Accelerations
+            ddq11 = (dq11-dq11_prev)/dt;
+            ddq12 = (dq12-dq12_prev)/dt;
+            ddq13 = (dq13-dq13_prev)/dt;
+            % Record Joint Accelerations
+            ddTheta11(end+1) = ddq11;
+            ddTheta12(end+1) = ddq12;
+            ddTheta13(end+1) = ddq13;
+            % Update Previous Joint Velocities
+            dq11_prev = dq11;
+            dq12_prev = dq12;
+            dq13_prev = dq13;
+            % Command Manipulator Joints
             [~] = vrep.simxSetJointTargetPosition(clientID, J11, Jtraj(i,1)-J11_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J12, Jtraj(i,2)-J12_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J13, Jtraj(i,3)-J13_Offset, vrep.simx_opmode_streaming);
@@ -146,24 +170,42 @@ if clientID > -1
             Jtraj(i,:) = [Q1,Q2,Q3];
         end
         for i=1:length(Jtraj)
-            % Record Manipulator Robot Data
-%             [~,manipulatorPosition]=vrep.simxGetObjectPosition(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,manipulatorOrientation]=vrep.simxGetObjectOrientation(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,J0]=vrep.simxGetJointPosition(clientID,joint0,vrep.simx_opmode_streaming);
-%             [~,J1]=vrep.simxGetJointPosition(clientID,joint1,vrep.simx_opmode_streaming);
-%             [~,J2]=vrep.simxGetJointPosition(clientID,joint2,vrep.simx_opmode_streaming);
-%             [~,J3]=vrep.simxGetJointPosition(clientID,joint3,vrep.simx_opmode_streaming);
-%             [~,J4]=vrep.simxGetJointPosition(clientID,joint4,vrep.simx_opmode_streaming);
-%             [Time]=vrep.simxGetLastCmdTime(clientID);
-%             manipulatorPosX(end+1) = manipulatorPosition(1);
-%             manipulatorPosY(end+1) = manipulatorPosition(3);
-%             manipulatorTheta0(end+1) = J0;
-%             manipulatorTheta1(end+1) = J1;
-%             manipulatorTheta2(end+1) = J2;
-%             manipulatorTheta3(end+1) = J3;
-%             manipulatorTheta4(end+1) = J4;
-%             T_manipulator(end+1) = Time/1000;
-            % Manipulator Joints
+            % Get and Record Time
+            [T]=vrep.simxGetLastCmdTime(clientID);
+            Time(end+1) = T/1000;
+            % Get Joint Angles
+            [~,q11]=vrep.simxGetJointPosition(clientID,J11,vrep.simx_opmode_streaming);
+            [~,q12]=vrep.simxGetJointPosition(clientID,J12,vrep.simx_opmode_streaming);
+            [~,q13]=vrep.simxGetJointPosition(clientID,J13,vrep.simx_opmode_streaming);
+            % Record Joint Angles
+            Theta11(end+1) = q11+J11_Offset;
+            Theta12(end+1) = q12+J12_Offset;
+            Theta13(end+1) = q13+J13_Offset;
+            % Calculate Joint Velocities
+            dq11 = (q11-q11_prev)/dt;
+            dq12 = (q12-q12_prev)/dt;
+            dq13 = (q13-q13_prev)/dt;
+            % Record Joint Velocities
+            dTheta11(end+1) = dq11;
+            dTheta12(end+1) = dq12;
+            dTheta13(end+1) = dq13;
+            % Update Previous Joint Velocities
+            q11_prev = q11;
+            q12_prev = q12;
+            q13_prev = q13;
+            % Calculate Joint Accelerations
+            ddq11 = (dq11-dq11_prev)/dt;
+            ddq12 = (dq12-dq12_prev)/dt;
+            ddq13 = (dq13-dq13_prev)/dt;
+            % Record Joint Accelerations
+            ddTheta11(end+1) = ddq11;
+            ddTheta12(end+1) = ddq12;
+            ddTheta13(end+1) = ddq13;
+            % Update Previous Joint Velocities
+            dq11_prev = dq11;
+            dq12_prev = dq12;
+            dq13_prev = dq13;
+            % Command Manipulator Joints
             [~] = vrep.simxSetJointTargetPosition(clientID, J11, Jtraj(i,1)-J11_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J12, Jtraj(i,2)-J12_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J13, Jtraj(i,3)-J13_Offset, vrep.simx_opmode_streaming);
@@ -181,62 +223,95 @@ if clientID > -1
             Q = [0,0,deg2rad(-60)];
             [Q1,Q2,Q3] = IK_3RRR(X,Y,Q(3),robot_params);
             Jtraj(i,:) = [Q1,Q2,Q3];
-            X_array(end+1) = X;
-            Y_array(end+1) = Y;
         end
-        plot(X_array,Y_array,'o')
         for i=1:length(Jtraj)
-            % Record Manipulator Robot Data
-%             [~,manipulatorPosition]=vrep.simxGetObjectPosition(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,manipulatorOrientation]=vrep.simxGetObjectOrientation(clientID,endeffector,-1,vrep.simx_opmode_streaming);
-%             [~,J0]=vrep.simxGetJointPosition(clientID,joint0,vrep.simx_opmode_streaming);
-%             [~,J1]=vrep.simxGetJointPosition(clientID,joint1,vrep.simx_opmode_streaming);
-%             [~,J2]=vrep.simxGetJointPosition(clientID,joint2,vrep.simx_opmode_streaming);
-%             [~,J3]=vrep.simxGetJointPosition(clientID,joint3,vrep.simx_opmode_streaming);
-%             [~,J4]=vrep.simxGetJointPosition(clientID,joint4,vrep.simx_opmode_streaming);
-%             [Time]=vrep.simxGetLastCmdTime(clientID);
-%             manipulatorPosX(end+1) = manipulatorPosition(1);
-%             manipulatorPosY(end+1) = manipulatorPosition(3);
-%             manipulatorTheta0(end+1) = J0;
-%             manipulatorTheta1(end+1) = J1;
-%             manipulatorTheta2(end+1) = J2;
-%             manipulatorTheta3(end+1) = J3;
-%             manipulatorTheta4(end+1) = J4;
-%             T_manipulator(end+1) = Time/1000;
-            % Manipulator Joints
+            % Get and Record Time
+            [T]=vrep.simxGetLastCmdTime(clientID);
+            Time(end+1) = T/1000;
+            % Get Joint Angles
+            [~,q11]=vrep.simxGetJointPosition(clientID,J11,vrep.simx_opmode_streaming);
+            [~,q12]=vrep.simxGetJointPosition(clientID,J12,vrep.simx_opmode_streaming);
+            [~,q13]=vrep.simxGetJointPosition(clientID,J13,vrep.simx_opmode_streaming);
+            % Record Joint Angles
+            Theta11(end+1) = q11+J11_Offset;
+            Theta12(end+1) = q12+J12_Offset;
+            Theta13(end+1) = q13+J13_Offset;
+            % Calculate Joint Velocities
+            dq11 = (q11-q11_prev)/dt;
+            dq12 = (q12-q12_prev)/dt;
+            dq13 = (q13-q13_prev)/dt;
+            % Record Joint Velocities
+            dTheta11(end+1) = dq11;
+            dTheta12(end+1) = dq12;
+            dTheta13(end+1) = dq13;
+            % Update Previous Joint Velocities
+            q11_prev = q11;
+            q12_prev = q12;
+            q13_prev = q13;
+            % Calculate Joint Accelerations
+            ddq11 = (dq11-dq11_prev)/dt;
+            ddq12 = (dq12-dq12_prev)/dt;
+            ddq13 = (dq13-dq13_prev)/dt;
+            % Record Joint Accelerations
+            ddTheta11(end+1) = ddq11;
+            ddTheta12(end+1) = ddq12;
+            ddTheta13(end+1) = ddq13;
+            % Update Previous Joint Velocities
+            dq11_prev = dq11;
+            dq12_prev = dq12;
+            dq13_prev = dq13;
+            % Command Manipulator Joints
             [~] = vrep.simxSetJointTargetPosition(clientID, J11, Jtraj(i,1)-J11_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J12, Jtraj(i,2)-J12_Offset, vrep.simx_opmode_streaming);
             [~] = vrep.simxSetJointTargetPosition(clientID, J13, Jtraj(i,3)-J13_Offset, vrep.simx_opmode_streaming);
             pause(0.05);
         end
-%         % Plot Robot Data
-%         figure(1)
-%         sgtitle('Manipulator Robot Position Analysis')
-%         subplot(1,4,1), plot(T_manipulator,manipulatorPosX)
-%         xlabel("Simulation Time (s)")
-%         ylabel("X Position (m)")
-%         subplot(1,4,2), plot(T_manipulator,manipulatorPosY)
-%         xlabel("Simulation Time (s)")
-%         ylabel("Y Position (m)")
-%         subplot(1,4,3), plot(manipulatorPosX,manipulatorPosY)
-%         xlabel("X Position (m)")
-%         ylabel("Y Position (m)")
-%         subplot(1,4,4)
-%         hold on
-%         plot(T_manipulator,manipulatorTheta0)
-%         plot(T_manipulator,manipulatorTheta1)
-%         plot(T_manipulator,manipulatorTheta2)
-%         plot(T_manipulator,manipulatorTheta3)
-%         plot(T_manipulator,manipulatorTheta4)
-%         hold off
-%         xlabel("Simulation Time (s)")
-%         ylabel("Joint Angles (rad)")
-%         legend("J0","J1","J2","J3","J4",'Location','EO')
-%         % Stop Simulation and MATLAB Script
-%         disp("Simulation Completed!")
-%         [~] = simxStopSimulation(vrep,clientID,vrep.simx_opmode_oneshot);
-%         break
-    %end
+        % Preprocess Data
+        Time = Time(5:end);
+        Theta11 = Theta11(5:end);
+        Theta12 = Theta12(5:end);
+        Theta13 = Theta13(5:end);
+        dTheta11 = dTheta11(5:end);
+        dTheta12 = dTheta12(5:end);
+        dTheta13 = dTheta13(5:end);
+        ddTheta11 = ddTheta11(5:end);
+        ddTheta12 = ddTheta12(5:end);
+        ddTheta13 = ddTheta13(5:end);
+        % Plot Data
+        figure(1)
+        sgtitle('3RRR Parallel Manipulator Robot Analysis')
+        subplot(1,3,1)
+        hold on
+        plot(Time,Theta11)
+        plot(Time,Theta12)
+        plot(Time,Theta13)
+        hold off
+        xlabel("Simulation Time (s)")
+        ylabel("Joint Angles (rad)")
+        legend("J11","J12","J13",'Location','NE')
+        subplot(1,3,2)
+        hold on
+        plot(Time,dTheta11)
+        plot(Time,dTheta12)
+        plot(Time,dTheta13)
+        hold off
+        xlabel("Simulation Time (s)")
+        ylabel("Joint Velocities (rad/s)")
+        legend("J11","J12","J13",'Location','NE')
+        subplot(1,3,3)
+        hold on
+        plot(Time,ddTheta11)
+        plot(Time,ddTheta12)
+        plot(Time,ddTheta13)
+        hold off
+        xlabel("Simulation Time (s)")
+        ylabel("Joint Accelerations (rad/s^2)")
+        legend("J11","J12","J13",'Location','NE')
+        % Stop Simulation and MATLAB Script
+        disp("Simulation Completed!")
+        [~] = simxStopSimulation(vrep,clientID,vrep.simx_opmode_oneshot);
+        break
+    end
 else
     disp('Error Connecting to CoppeliaSim!');
 end
