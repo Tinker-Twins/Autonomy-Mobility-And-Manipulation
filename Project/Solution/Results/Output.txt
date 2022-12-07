@@ -1,0 +1,41 @@
+=============================
+MOBILE MANIPULATOR SIMULATION
+=============================
+
+-------------------------------------------------------
+Redundancy Resolution Using Pseudoinverse Method
+-------------------------------------------------------
+RMSE for elliptical trajectory: 2.851762e-02 m
+RMSE for rectangular trajectory: 6.932701e-02 m
+
+-------------------------------------------------------
+Redundancy Resolution Using Augmented Task-Space Method
+Theta_1_Dot + Theta_2_Dot = 0
+-------------------------------------------------------
+RMSE for elliptical trajectory: 4.082991e-02 m
+RMSE for rectangular trajectory: 4.865110e-02 m
+
+-------------------------------------------------------
+Redundancy Resolution Using Augmented Task-Space Method
+Theta_1_Dot = 0
+-------------------------------------------------------
+RMSE for elliptical trajectory: 2.559577e-02 m
+RMSE for rectangular trajectory: 6.185549e-02 m
+
+-------------------------------------------------------
+Redundancy Resolution Using Artificial Potential Method
+-------------------------------------------------------
+RMSE for elliptical trajectory: 2.835950e-02 m
+RMSE for rectangular trajectory: 6.671794e-02 m
+
+-------------------------------------------------------
+Configuration-Space Resolved-Rate Motion Control
+-------------------------------------------------------
+RMSE for elliptical trajectory: 1.911653e-01 m
+RMSE for rectangular trajectory: 2.328687e-01 m
+
+-------------------------------------------------------
+Task-Space Resolved-Rate Motion Control
+-------------------------------------------------------
+RMSE for elliptical trajectory: 3.790011e-02 m
+RMSE for rectangular trajectory: 4.266227e-02 m

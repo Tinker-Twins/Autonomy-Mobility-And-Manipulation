@@ -1,0 +1,35 @@
+-----------------------
+Elliptical Trajectory:
+-----------------------
+X	0.165063509461097
+Y	0.75
+phi	0
+theta1	0
+theta2	90
+
+-----------------------
+Rectangular Trajectory:
+-----------------------
+X	0.25
+Y	1.75
+phi	0
+theta1	0
+theta2	90
+
+------------------------------------------
+Elliptical Trajectory with Initial Error:
+------------------------------------------
+X	0.330127018922194
+Y	1.5
+phi	0
+theta1	0
+theta2	180
+
+------------------------------------------
+Rectangular Trajectory with Initial Error:
+------------------------------------------
+X	0.5
+Y	3.5
+phi	0
+theta1	0
+theta2	180
