@@ -29,8 +29,8 @@ Rzxz = Rz11*Rx12*Rz13;
 disp(Rzxz);
 
 fprintf("Alternate soultions for relative Rzyz to achieve the same orientation:\n")
-phi1 = atan2(Rzxz(2,3), Rzxz(3,3));
-phi2 = atan2(-Rzxz(2,3), -Rzxz(3,3));
+phi1 = atan2(Rzxz(2,3), Rzxz(1,3));
+phi2 = atan2(-Rzxz(2,3), -Rzxz(1,3));
 fprintf("phi = %.4f rad\tphi = %.4f rad\n", phi1, phi2)
 theta1 = atan2(sqrt(1-Rzxz(3,3)^2), Rzxz(3,3));
 theta2 = atan2(-sqrt(1-Rzxz(3,3)^2), Rzxz(3,3));

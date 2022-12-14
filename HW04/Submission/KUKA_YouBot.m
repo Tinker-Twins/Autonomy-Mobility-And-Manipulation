@@ -1,5 +1,5 @@
 %% AuE 8220 - Autonomy: Mobility and Manipulation %%
-% Homework 4: Control of Mobile-Manipulator Robot %
+% Homework 3: Interpolation, Inverse Kinematics %
 % Authors: Tanmay Samak, Chinmay Samak, Riccardo Setti, Olamide Akinyele
 
 fprintf('\n=========================================================================\n');

@@ -14,7 +14,7 @@ Final orientation after relative Rzxz rotations:
     0.6124    0.6124    0.5000
 
 Alternate soultions for relative Rzyz to achieve the same orientation:
-phi = -0.7137 rad	phi = 2.4279 rad
+phi = -0.5236 rad	phi = 2.6180 rad
 theta = 1.0472 rad	theta = -1.0472 rad
 psi = 2.3562 rad	psi = -0.7854 rad
 
