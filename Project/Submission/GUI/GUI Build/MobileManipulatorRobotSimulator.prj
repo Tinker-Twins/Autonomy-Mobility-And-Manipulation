@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="3712985511" file="C:\Users\tsamak\OneDrive - Clemson University\Desktop\AuE-8220\Project\Solution\GUI\GUI Source\MobileManipulatorRobotSimulator.prj" location="C:\Users\tsamak\OneDrive - Clemson University\Desktop\AuE-8220\Project\Solution\GUI\GUI Source" name="MobileManipulatorRobotSimulator" preferred-package-location="C:\Users\tsamak\OneDrive - Clemson University\Desktop\AuE-8220\Project\Solution\GUI\GUI Source\MobileManipulatorRobotSimulator\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="C:\Users\tsamak\OneDrive - Clemson University\Desktop\AuE-8220\Project\Solution\GUI\GUI Source\MobileManipulatorRobotSimulator.prj" location="C:\Users\tsamak\OneDrive - Clemson University\Desktop\AuE-8220\Project\Solution\GUI\GUI Source" name="MobileManipulatorRobotSimulator" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>MobileManipulatorRobotSimulator</param.appname>
     <param.icon>${PROJECT_ROOT}\MobileManipulatorRobotSimulator_resources\icon.ico</param.icon>
     <param.icons>
