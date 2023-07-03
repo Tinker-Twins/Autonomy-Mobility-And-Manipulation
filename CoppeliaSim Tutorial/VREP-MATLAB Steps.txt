@@ -1,15 +1,15 @@
-1.1. Launch Coppeliasim
+1.1. Launch CoppeliaSim
 1.2. Launch MATLAB
 
-2.1. In Coppeliasim, double-click on the `new scene` script and add the following line at the begining:
+2.1. In CoppeliaSim, double-click on the `new scene` script and add the following line at the begining:
 
 	simRemoteApi.start(19999)
 
-2.2. In MATLAB, browse to the directory where Coppeliasim is installed (e.g. C:\Program Files\CoppeliaRobotics)
+2.2. In MATLAB, browse to the directory where CoppeliaSim is installed (e.g. C:\Program Files\CoppeliaRobotics)
 2.3. Add the `CoppeliaSimEdu` folder to PATH by right-clicking it --> `Add to Path` --> `Selected Folders and Sub-Folders`
 
 3.1. In MATLAB, browse to `C:\Program Files\CoppeliaRobotics\CoppeliaSimEdu\programming\remoteApiBindings\matlab\matlab` and open `simpleTest.m`
-3.2. In Coppeliasim, RUN the simulation
+3.2. In CoppeliaSim, RUN the simulation
 3.3. In MATLAB, RUN the `simpleTest.m`; it should print something as follows:
 
 	Program started
